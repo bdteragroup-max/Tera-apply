@@ -1,0 +1,391 @@
+body {
+    background-color: #525659;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.paper {
+    background: white;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm;
+    margin: auto;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid #d3d3d3;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Layout Header Table: ล็อกความกว้างเพื่อให้รูปไม่ขยับ */
+.header-layout-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: none !important;
+    margin-bottom: 10px;
+    table-layout: fixed;
+    /* บังคับสัดส่วนตารางให้คงที่ รูปจะได้ไม่ตกขอบ */
+}
+
+.header-layout-table td {
+    border: none !important;
+    padding: 0 !important;
+    vertical-align: top;
+}
+
+/* ปรับแต่งแถวข้อมูลหลัก: แก้ปัญหาเส้นไม่ต่อคำและบรรทัดล้น */
+.info-row {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    /* ล็อกให้อยู่บรรทัดเดียว */
+    overflow: hidden;
+    font-size: 12px;
+    gap: 0;
+    /* กำจัดช่องว่างเพื่อให้เส้นใต้ต่อท้ายคำทันที */
+}
+
+/* หัวข้อ: ปรับให้ยืดหยุ่นตามเนื้อหาแต่มีค่าขั้นต่ำเพื่อให้ตรงแนวกัน */
+.label-fixed,
+.label-text {
+    min-width: fit-content;
+    /* ให้กว้างเท่าตัวหนังสือ เส้นจะได้มาชิดท้ายคำ */
+    padding-right: 8px;
+    /* ระยะห่างจากคำถึงเส้นใต้ */
+    flex-shrink: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+
+/* สั่งให้เส้นใต้ยืดเต็มบรรทัดโดยไม่ล้น */
+.input-line {
+    border: none;
+    border-bottom: 1px solid black !important;
+    /* เส้นดำเข้ม */
+    outline: none;
+    background: transparent;
+    padding: 0 5px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px;
+    flex: 1;
+    /* ยืดให้เต็มพื้นที่ที่เหลือ */
+    min-width: 20px;
+    /* ป้องกัน input หายเมื่อพื้นที่เหลือน้อย */
+}
+
+/* รูปถ่าย: ดันเข้ามาจากขอบขวาเพื่อไม่ให้ตกขอบ */
+.photo-box {
+    width: 3.5cm;
+    height: 4.5cm;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: 15px;
+    /* ดันรูปห่างจากขอบขวาของกระดาษ */
+}
+
+#preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#placeholderText {
+    z-index: 1;
+    font-size: 12px;
+    color: #666;
+}
+
+/* 6. Print Settings: สำหรับ PDF */
+@media print {
+    body {
+        background: none !important;
+        padding: 0 !important;
+    }
+
+    .paper {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        padding: 10mm !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* บังคับให้ตารางประวัติการศึกษากลับมาแสดงผล */
+.edu-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    /* รวมเส้นขอบเป็นเส้นเดียว */
+    margin-top: 10px;
+    table-layout: fixed !important;
+    /* ล็อกความกว้างช่องให้เท่ากันป้องกันตัวหนังสือเบียด */
+    border: 1px solid black !important;
+}
+
+/* กำหนดเส้นขอบและระยะห่างในช่องตาราง */
+.edu-table th,
+.edu-table td {
+    border: 1px solid black !important;
+    /* เส้นแบ่งตารางสีดำชัดเจน */
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+    vertical-align: middle;
+    word-wrap: break-word;
+    /* ป้องกันตัวหนังสือล้นช่อง */
+}
+
+/* หัวตารางสีเทาอ่อน */
+.edu-table th {
+    background-color: #f2f2f2 !important;
+    font-weight: bold;
+}
+
+/* ปรับ Input ภายในตารางไม่ให้ใช้คุณสมบัติ Flex ของส่วนอื่น */
+.edu-table .input-line {
+    display: block !important;
+    width: 100% !important;
+    border-bottom: none !important;
+    /* ลบเส้นใต้ในตารางเพื่อไม่ให้ซ้อนเส้นตาราง */
+    flex: none !important;
+    /* ป้องกันการยืดแบบ Flexbox ที่ทำให้ตารางหาย */
+    padding: 2px 0;
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* จัดแนวข้อความระดับการศึกษาให้อยู่ชิดซ้าย */
+.edu-table td:first-child {
+    text-align: left;
+    padding-left: 8px;
+}
+
+/* Helper Classes */
+.section-title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* ล็อกโครงสร้างตารางทักษะ */
+.skill-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    /* ล็อกความกว้างคอลัมน์ */
+    margin-top: 10px;
+    border: 1px solid black !important;
+}
+
+.skill-table th,
+.skill-table td {
+    border: 1px solid black !important;
+    /* เส้นแบ่งสีดำชัดเจน */
+    padding: 5px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+/* หัวตาราง */
+.skill-table th {
+    background-color: #f2f2f2 !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ปรับแต่งช่อง "รายละเอียดทักษะอื่น ๆ" */
+.skill-table td.text-left {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px !important;
+}
+
+/* ปรับ Input ภายในตารางไม่ให้ยืด Flex จนเบี้ยว */
+.skill-table .input-line {
+    display: inline-block !important;
+    border-bottom: 1px solid black !important;
+    flex: none !important;
+    /* ป้องกันการดีดของโครงสร้างตาราง */
+    text-align: center;
+}
+
+/* จัดระเบียบระยะห่างพิเศษภายในช่องทักษะ */
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+.mt-1 {
+    margin-top: 4px;
+}
+
+.mt-2 {
+    margin-top: 10px;
+}
+
+.mx-1 {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.ms-2 {
+    margin-left: 8px;
+}
+
+.ms-3 {
+    margin-left: 12px;
+}
+
+.me-1 {
+    margin-right: 4px;
+}
+
+/* จัดการ HR ในตารางให้ดูเป็นระเบียบ */
+.skill-table hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+/* ป้องกัน info-row ในตารางยืดจนทำตารางหาย */
+.skill-table td .info-row {
+    display: flex !important;
+    width: 100% !important;
+    margin-bottom: 5px !important;
+    overflow: visible !important;
+    /* ป้องกันเนื้อหาถูกตัด */
+}
+
+.w-80 {
+    width: 80px;
+    flex: none !important;
+}
+
+.mx-2 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* ===== Header logo table: กันรูปหลุดกรอบ 100% ===== */
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.header-table td {
+    border: 1px solid #000;
+    vertical-align: middle;
+    padding: 6px;
+    overflow: hidden;
+    /* ✅ กันล้นออกนอกกรอบ td */
+}
+
+.header-table .hdr-logo {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.header-table .hdr-logo .logo {
+    display: block;
+    margin: 0 auto 6px auto;
+    max-width: 100%;
+    height: 28px;
+    /* ล็อกความสูงโลโก้ให้เท่ากัน */
+    width: auto;
+    object-fit: contain;
+}
+
+.header-table .chk-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.header-table .chk-wrap input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.form-actions {
+    margin-top: 18px;
+    padding: 0;
+    /* ไม่มีกรอบ */
+    border: none;
+    /* ไม่มีเส้น */
+    border-radius: 0;
+    /* ไม่โค้ง */
+    background: transparent;
+    /* ไม่มีพื้นหลังเทา */
+    text-align: center;
+}
+
+.btn-submit {
+    width: 320px;
+    max-width: 100%;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #111;
+    border-radius: 6px;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    transition: transform .05s ease, opacity .15s ease;
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+}
+
+.btn-submit:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.submit-status {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d6efd;
+    min-height: 18px;
+}
+
+.submit-hint {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.signature-right {
+    width: 60%;
+    /* เพิ่มความกว้างเพื่อไม่ให้ตกบรรทัด (ปรับได้ 55-70%) */
+    margin-left: auto;
+    text-align: right;
+    display: block;
+}
+
+.signature-right .sig-line {
+    white-space: nowrap;
+    /* ห้ามตัดบรรทัดเด็ดขาด */
+}
