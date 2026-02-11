@@ -10,28 +10,52 @@
 <body>
     <div class="paper">
         <form id="jobForm">
-            <table class="header-table" style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+            <table class="header-table" style="width:100%; border-collapse:collapse; table-layout:fixed;">
                 <tr>
+                    <!-- ช่องซ้าย: ใบสมัคร + วันที่สมัคร (ไม่มีกรอบ input) -->
+                    <td style="width:25%; vertical-align:middle; padding:10px; text-align:center;">
+                        <h4 style="margin:0 0 6px 0;">ใบสมัครงาน</h4>
+                        <div style="font-size:12px; margin-bottom:6px;">วันที่สมัคร</div>
+
+                        <input type="text" id="current_date" name="วันที่สมัครงาน" placeholder="DD/MM/YYYY" style="
+          width:140px;
+          font-size:14px;
+          margin:0 auto;
+          text-align:center;
+          border:none;
+          border-bottom:1px solid #000;
+          outline:none;
+          background:transparent;
+          padding:2px 0;
+        ">
+                    </td>
+
                     <!-- โลโก้ 1 -->
-                    <td class="hdr-logo" style="border: 1px solid #000;">
+                    <td class="hdr-logo" style="border:1px solid #000; text-align:center; vertical-align:middle;">
                         <img src="./logo-tera.png" class="logo tera" alt="TERA">
-                        <label class="chk-wrap"><input type="checkbox" name="company_tera" value="YES"></label>
+                        <label class="chk-wrap">
+                            <input type="checkbox" name="company_tera" value="YES">
+                        </label>
                     </td>
 
                     <!-- โลโก้ 2 -->
-                    <td class="hdr-logo" style="border: 1px solid #000;">
+                    <td class="hdr-logo" style="border:1px solid #000; text-align:center; vertical-align:middle;">
                         <img src="./electric.png" class="logo electric" alt="TERA ELECTRIC">
-                        <label class="chk-wrap"><input type="checkbox" name="company_electric" value="YES"></label>
+                        <label class="chk-wrap">
+                            <input type="checkbox" name="company_electric" value="YES">
+                        </label>
                     </td>
 
                     <!-- โลโก้ 3 -->
-                    <td class="hdr-logo" style="border: 1px solid #000;">
+                    <td class="hdr-logo" style="border:1px solid #000; text-align:center; vertical-align:middle;">
                         <img src="./power.png" class="logo power" alt="TERA POWER">
-                        <label class="chk-wrap"><input type="checkbox" name="company_power" value="YES"></label>
+                        <label class="chk-wrap">
+                            <input type="checkbox" name="company_power" value="YES">
+                        </label>
                     </td>
-
                 </tr>
             </table>
+
 
             <p style="font-size: 14px; margin-bottom: 10px;">เลขที่ 39 ซอยเฉลิมพระเกียรติ ร.9 ซอย 28 แขวงดอกไม้
                 เขตประเวศ กทม.
@@ -907,4 +931,3 @@
 </body>
 
 </html>
-
